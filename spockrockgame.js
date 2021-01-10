@@ -35,6 +35,8 @@ const choices = {
 };
 
 // console.log(allGameIcons);
+// Add global variable to handle Computer Choice:
+let computerChoice = '';
 
 // Reset all 'selected' Icons
 function resetSelected() {
@@ -43,10 +45,75 @@ function resetSelected() {
   });
 };
 
+// Random Computer Choice
+function computerRandomChoice() {
+  // provides 0 < number < 1
+  const computerChoiceNumber = Math.random();
+  // console.log(computerChoiceNumber);
+
+  // split choice into 5 ranges to map computer choice to an Icon
+  if (computerChoiceNumber < 0.2) {
+    computerChoice = 'rock';
+  } else if (computerChoiceNumber <= 0.4) {
+    computerChoice = 'paper';
+  } else if (computerChoiceNumber <= 0.6) {
+    computerChoice = 'scissors';
+  } else if (computerChoiceNumber <= 0.8) {
+    computerChoice = 'lizard';
+  } else {
+    computerChoice = 'spock';
+  };
+  // console.log(computerChoice);
+};
+
+// Passing Computer selection value and styling it
+function displayComputerChoice() {
+
+  console.log(computerChoice);
+  // Apply 'selected' styling and update computerChoice
+  switch(computerChoice) {
+    case 'rock':
+      computerRock.classList.add('selected');
+      computerChoiceEl.textContent = ' --- Rock';
+      break;
+
+    case 'paper':
+      computerPaper.classList.add('selected');
+      computerChoiceEl.textContent = ' --- Paper';
+      break;
+    
+    case 'scissors':
+      computerScissors.classList.add('selected');
+      computerChoiceEl.textContent = ' --- Scissors';
+      break;
+    
+    case 'lizard':
+      computerLizard.classList.add('selected');
+      computerChoiceEl.textContent = ' --- Lizard';
+      break;
+
+    case 'spock':
+      computerSpock.classList.add('selected');
+      computerChoiceEl.textContent = ' --- Spock';
+      break;
+    
+    default:
+      break;
+  };
+};
+
+// Call functions to process each turn
+function checkResult() {
+  resetSelected();
+  computerRandomChoice();
+  displayComputerChoice();
+};
+
 // Passing Player selection value and styling it
 function select(playerChoice) {
   // console.log(playerChoice);
-  resetSelected();
+  // resetSelected();
+  checkResult();
   // Apply 'selected' styling and update playerChoice
   switch(playerChoice) {
     case 'rock':
