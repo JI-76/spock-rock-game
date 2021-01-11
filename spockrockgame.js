@@ -35,7 +35,10 @@ const choices = {
 };
 
 // console.log(allGameIcons);
-// Add global variable to handle Computer Choice:
+
+// Add global variable to Choices:
+let playerScoreNumber = 0;
+let computerScoreNumber = 0;
 let computerChoice = '';
 
 // Reset all 'selected' Icons
@@ -69,7 +72,8 @@ function computerRandomChoice() {
 // Passing Computer selection value and styling it
 function displayComputerChoice() {
 
-  console.log(computerChoice);
+  // console.log(computerChoice);
+
   // Apply 'selected' styling and update computerChoice
   switch(computerChoice) {
     case 'rock':
@@ -102,18 +106,53 @@ function displayComputerChoice() {
   };
 };
 
+// Check results; increase scores; update resultText 
+function updateScore(playerChoice) {
+
+  // console.log(playerChoice, computerChoice);
+  // Tie
+  if (playerChoice === computerChoice) {
+    resultText.textContent = "It's a tie.";
+  } else {
+    // use Player choice as the target key in the choices[] array to see it's associated defeats[] array
+    const choice = choices[playerChoice];
+    // console.log(choice);
+    // console.log(choice.defeats.indexOf(computerChoice));
+
+    // if Computer choice is contained in the defeats[] array, then Player wins round
+    //  Positive 1 or 0 indicates that Computer choice is in the defeats[] array, then Player wins round
+    if (choice.defeats.indexOf(computerChoice) > -1) {
+      resultText.textContent = "You Won!";
+      // increment Player Score
+      playerScoreNumber++;
+      playerScoreEl.textContent = playerScoreNumber;
+    } else {
+    //  Negative -1 indicates that Computer choice is NOT in the defeats[] array, then Computer wins round
+      resultText.textContent = "You Lost!";      
+      computerScoreNumber++;
+      computerScoreEl.textContent = computerScoreNumber;
+    };
+  };
+};
+
 // Call functions to process each turn
-function checkResult() {
+// function checkResult() {
+  function checkResult(playerChoice) {  
   resetSelected();
   computerRandomChoice();
   displayComputerChoice();
+  updateScore(playerChoice);
 };
 
 // Passing Player selection value and styling it
 function select(playerChoice) {
+  
   // console.log(playerChoice);
+  
   // resetSelected();
-  checkResult();
+  // checkResult();
+  checkResult(playerChoice);
+
   // Apply 'selected' styling and update playerChoice
   switch(playerChoice) {
     case 'rock':
