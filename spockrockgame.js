@@ -48,6 +48,30 @@ function resetSelected() {
   });
 };
 
+// Reset Score and playerChoice \ computerChoice
+function resetAll() {
+
+  // For Player:
+  // reset score to 0
+  playerScoreNumber = 0;
+  playerScoreEl.textContent = playerScoreNumber;
+  // reset choice text to blank
+  playerChoiceEl.textContent = '';
+
+  // For Computer:
+  // reset score to 0
+  computerScoreNumber = 0;
+  computerScoreEl.textContent = computerScoreNumber;
+  // reset choice text to blank
+  computerChoiceEl.textContent = '';
+
+  // remove result text
+  resultText.textContent = '';
+
+  // reset icons
+  resetSelected();
+};
+
 // Random Computer Choice
 function computerRandomChoice() {
   // provides 0 < number < 1
@@ -184,3 +208,6 @@ function select(playerChoice) {
       break;
   };
 };
+
+// On startup, set initial values
+resetAll();
